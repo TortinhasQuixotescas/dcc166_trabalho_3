@@ -50,10 +50,10 @@ CREATE TABLE IF NOT EXISTS concession(
     course_id INT NOT NULL,
     FOREIGN KEY (course_id) REFERENCES course(id),
     -- Race of the student: 'B' for "Branca", 'P' for "Preta", 'D' for "Parda", 'I' for "Indígena", 'A' for "Amarela", and 'N' for "Não Informada"
-    beneficiary_race CHAR(1) NOT NULL CHECK (
-        beneficiary_race IN ('B', 'P', 'D', 'I', 'A', 'N')
+    race CHAR(1) NOT NULL CHECK (
+        race IN ('B', 'P', 'D', 'I', 'A', 'N')
     ),
-    beneficiary_birth_date DATE NOT NULL,
-    beneficiary_city_id INT NOT NULL,
-    FOREIGN KEY (beneficiary_city_id) REFERENCES city(id)
+    birth_date DATE NOT NULL,
+    city_id INT NOT NULL,
+    FOREIGN KEY (city_id) REFERENCES city(id)
 );

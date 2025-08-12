@@ -1,0 +1,48 @@
+@startuml bakery
+
+hide empty members
+
+namespace prouni {
+
+    enum Race {
+        BRANCA
+        PRETA
+        PARDA
+        AMARELA
+        INDIGENA
+        NAO_INFORMADA
+    }
+
+    class City {
+    - name: String
+    - federative_unit: String
+    }
+
+    class Institution {
+    - name: String
+    - e_mec_code: String
+    }
+
+    class Course {
+        - name: String
+    }
+    Course --o Institution : "offered by"
+
+    class Concession {
+    - year: Integer
+    - race: Race
+    - birth_date: Date
+    }
+    Concession -- City : "resides in"
+    Concession -- Course : "enrolled in"
+
+}
+
+namespace census {
+
+    
+
+}
+
+
+@enduml
