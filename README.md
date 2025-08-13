@@ -40,6 +40,21 @@ For copying the example file, you can use the following command:
 cp ./database/populate/.env.example ./database/populate/.env
 ```
 
+You must download the ODS and CSV files to appropriate directories as follows.
+
+```none
+project_root
+└── sources
+    ├── cor
+    │   ├── metropolitanos.ods
+    │   └── todos.ods
+    ├── idade
+    │   └── todos.ods
+    └── prouni
+        ├── 2010.csv
+        └── 2020.csv
+```
+
 Then, enter the directory of the script you want to run, and execute it with python.
 The scripts must be run in the following order to ensure that all dependencies are met.
 
