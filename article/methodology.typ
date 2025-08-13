@@ -44,8 +44,8 @@ Então, selecionamos da
 )
 a população residente dentro do grupo etário de 18 a 24 anos e a população total.
 
-A fim de organizar os dados, desenvolvemos um diagrama de classes utilizando a ferramenta PlantUML @plantuml:2025:plantuml, que representa as relações entre as entidades identificadas.
-Este modelo, apresentado na @class_diagram, define as entidades a seguir.
+A fim de organizar os dados, desenvolvemos um diagrama de classes utilizando a ferramenta PlantUML @plantuml:2025:plantuml.
+Este modelo, apresentado na @class_diagram, define as entidades a seguir e suas relações.
 (1) `City`: representa um município, guardando seu nome, unidade federativa e a informação de se é metropolitano ou não.
 (2) `Census`: guarda as informações de interesse coletadas pelo censo demográfico de determinado ano para um município.
 (3) `Concession`: representa a concessão de uma bolsa do ProUni, contendo informações sobre a cor ou raça do beneficiário, sua idade, e uma relação com a cidade onde reside.
@@ -58,8 +58,8 @@ Este modelo, apresentado na @class_diagram, define as entidades a seguir.
   ],
 )<class_diagram>
 
-// Com o modelo de dados definido, foi utilizado o sistema gerenciador de banco de dados SQLite @sqlite:2025:sqlite para criar a estrutura lógica do banco.
-// As tabelas foram criadas de acordo com o diagrama de classes apresentado por meio da linguagem SQL, com o apoio da ferramenta de @ia DeepSeek @deepseek:2025:deepseek para tradução da modelagem UML para SQL.
+Com o modelo de dados definido, foi utilizado o sistema gerenciador de banco de dados @pg #cite(<postgresql:2025:postgresql>) para criar a estrutura lógica do banco.
+As tabelas foram criadas de acordo com o diagrama de classes apresentado por meio de @sql, com o apoio da ferramenta de @ia DeepSeek @deepseek:2025:deepseek para tradução da modelagem UML.
 
 // Em seguida, os autores criaram por meio da mesma ferramenta de @ia um conjunto de dados sintéticos referentes a receitas, insumos e seus custos, descritos em comandos de inserção de dados SQL.
 // Tais comandos podem ser acessados por meio do repositório público do projeto @tortinhas_quixotescas:2025:repository_dcc166_atv2.

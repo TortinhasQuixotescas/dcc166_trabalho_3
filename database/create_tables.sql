@@ -1,59 +1,78 @@
-CREATE TABLE IF NOT EXISTS city(
+-- Create the enumeration type for color
+CREATE TYPE color AS ENUM (
+    'BRANCA',
+    'PRETA',
+    'PARDA',
+    'AMARELA',
+    'INDIGENA',
+    'NAO_INFORMADA'
+);
+
+-- Create enumeration type for Brazilian federative units
+CREATE TYPE federative_unit AS ENUM (
+    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
+    'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
+    'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+);
+
+-- Create census schema and tables
+CREATE SCHEMA census;
+
+CREATE TABLE census.city (
+    id SERIAL PRIMARY KEY,
+    ibge_code CHAR(7) NOT NULL UNIQUE,
+    name VARCHAR(255) NOT NULL,
+    federative_unit federative_unit NOT NULL,
+    is_metropolitan BOOLEAN NOT NULL,
+    CONSTRAINT unique_city_name_uf UNIQUE (name, federative_unit),
+    CONSTRAINT valid_ibge_code CHECK (ibge_code ~ '^[0-9]{7}$')
+);
+
+CREATE TABLE census.census (
+    id SERIAL PRIMARY KEY,
+    city_id INTEGER NOT NULL REFERENCES census.city(id),
+    year INTEGER NOT NULL,
+    total_population INTEGER NOT NULL,
+    young_population INTEGER NOT NULL,
+    white_population INTEGER NOT NULL,
+    black_population INTEGER NOT NULL,
+    parda_population INTEGER NOT NULL,
+    yellow_population INTEGER NOT NULL,
+    indigenous_population INTEGER NOT NULL,
+    CONSTRAINT unique_city_year UNIQUE (city_id, year),
+    CONSTRAINT valid_year CHECK (year BETWEEN 1900 AND 2100)
+);
+
+-- Create prouni schema and tables
+CREATE SCHEMA prouni;
+
+CREATE TABLE prouni.institution (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    federative_unit CHAR(2) NOT NULL CHECK (
-        federative_unit IN (
-            'AC',
-            'AL',
-            'AP',
-            'AM',
-            'BA',
-            'CE',
-            'DF',
-            'ES',
-            'GO',
-            'MA',
-            'MT',
-            'MS',
-            'MG',
-            'PA',
-            'PB',
-            'PR',
-            'PE',
-            'PI',
-            'RJ',
-            'RN',
-            'RS',
-            'RO',
-            'RR',
-            'SC',
-            'SP',
-            'SE',
-            'TO'
-        )
-    )
+    e_mec_code VARCHAR(20) NOT NULL UNIQUE
 );
-CREATE TABLE IF NOT EXISTS institution(
+
+CREATE TABLE prouni.course (
     id SERIAL PRIMARY KEY,
+    institution_id INTEGER NOT NULL REFERENCES prouni.institution(id),
     name VARCHAR(255) NOT NULL,
-    e_mec_code VARCHAR(20) NOT NULL
+    CONSTRAINT unique_course_institution UNIQUE (institution_id, name)
 );
-CREATE TABLE IF NOT EXISTS course(
+
+CREATE TABLE prouni.concession (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    institution_id INT NOT NULL,
-    FOREIGN KEY (institution_id) REFERENCES institution(id)
-);
-CREATE TABLE IF NOT EXISTS concession(
-    id SERIAL PRIMARY KEY,
-    year INT NOT NULL,
-    course_id INT NOT NULL,
-    FOREIGN KEY (course_id) REFERENCES course(id),
-    -- Race of the student: 'B' for "Branca", 'P' for "Preta", 'D' for "Parda", 'I' for "Indígena", 'A' for "Amarela", and 'N' for "Não Informada"
-    race CHAR(1) NOT NULL CHECK (
-        race IN ('B', 'P', 'D', 'I', 'A', 'N')
-    ),
+    course_id INTEGER NOT NULL REFERENCES prouni.course(id),
+    city_id INTEGER NOT NULL REFERENCES census.city(id),
+    year INTEGER NOT NULL,
+    color COLOR NOT NULL,
     birth_date DATE NOT NULL,
-    city_id INT NOT NULL,
-    FOREIGN KEY (city_id) REFERENCES city(id)
+    CONSTRAINT valid_concession_year CHECK (year BETWEEN 2000 AND 2100),
+    CONSTRAINT valid_birth_date CHECK (birth_date BETWEEN '1900-01-01' AND CURRENT_DATE)
 );
+
+-- Create additional indexes for better performance
+CREATE INDEX idx_census_city ON census.census(city_id);
+CREATE INDEX idx_city_ibge_code ON census.city(ibge_code);
+CREATE INDEX idx_course_institution ON prouni.course(institution_id);
+CREATE INDEX idx_concession_course ON prouni.concession(course_id);
+CREATE INDEX idx_concession_city ON prouni.concession(city_id);

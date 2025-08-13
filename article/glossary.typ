@@ -84,4 +84,12 @@
     short: "SIDRA",
     long: "Sistema IBGE de Recuperação Automática",
   ),
+  pg: (
+    short: "PostgreSQL",
+  ),
+  sql: (
+    short: "SQL",
+    long: "Structured Query Language",
+    description: "Em português, Linguagem de Consulta Estruturada",
+  ),
 )

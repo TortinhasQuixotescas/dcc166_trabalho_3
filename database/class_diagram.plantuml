@@ -1,10 +1,11 @@
-@startuml bakery
+@startuml prouni
 
 hide empty members
 
 namespace census {
 
     class City {
+        - code: String
         - name: String
         - federative_unit: String
         - is_metropolitan: boolean
