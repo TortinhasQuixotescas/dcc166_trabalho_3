@@ -1,3 +1,4 @@
 sources/
 ## Development environment
 .direnv/
+.venv/

@@ -71,9 +71,8 @@ def import_all_cities(ods_path):
             trans.rollback()
             raise
     
-    print(f"Successfully imported {inserted_count} new cities (non-metropolitan)")
-    print(f"Skipped {len(final_data) - inserted_count} duplicate cities")
+    print(f"Successfully imported {inserted_count} cities.")
 
 if __name__ == "__main__":
-    ods_file_path = "../../sources/cor/todos.ods"  # Update with your actual file path
+    ods_file_path = "../../../sources/cor/todos.ods"  # Update with your actual file path
     import_all_cities(ods_file_path)

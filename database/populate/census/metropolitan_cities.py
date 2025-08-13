@@ -55,5 +55,5 @@ def import_metropolitan_cities(ods_path):
     print(f"Successfully imported {len(final_data)} metropolitan cities")
 
 if __name__ == "__main__":
-    ods_file_path = "../../sources/cor/metropolitanos.ods"  # Update with your actual file path
+    ods_file_path = "../../../sources/cor/metropolitanos.ods"  # Update with your actual file path
     import_metropolitan_cities(ods_file_path)
