@@ -89,7 +89,16 @@
   ),
   sql: (
     short: "SQL",
-    long: "Structured Query Language",
-    description: "Em português, Linguagem de Consulta Estruturada",
+    long: "Linguagem de Consulta Estruturada",
+    description: "Em inglês, Structured Query Language",
+  ),
+  bd: (
+    short: "BD",
+    long: "Base de Dados",
+  ),
+  uml: (
+    short: "UML",
+    long: "Linguagem de Modelagem Unificada",
+    description: "Em inglês, Unified Modeling Language",
   ),
 )

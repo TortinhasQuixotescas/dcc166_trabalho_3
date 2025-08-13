@@ -53,29 +53,20 @@ Este modelo, apresentado na @class_diagram, define as entidades a seguir e suas 
 (5) `Institution`: representa uma @ies, contendo seu nome e o código do e-MEC.
 
 #figure(
-  image("./images/class_diagram.svg", width: 100%),
-  caption: [Diagrama de classes UML representando a estrutura de dados.\ Fonte: Elaborado pelos autores (2025).
+  image("./images/class_diagram.svg", width: 80%),
+  caption: [Diagrama de classes @uml:short representando a estrutura de dados.\ Fonte: Elaborado pelos autores (2025).
   ],
 )<class_diagram>
 
-Com o modelo de dados definido, foi utilizado o sistema gerenciador de banco de dados @pg #cite(<postgresql:2025:postgresql>) para criar a estrutura lógica do banco.
-As tabelas foram criadas de acordo com o diagrama de classes apresentado por meio de @sql, com o apoio da ferramenta de @ia DeepSeek @deepseek:2025:deepseek para tradução da modelagem UML.
+Com o modelo de dados definido, descrevemos #emph[schemas] e tabelas de acordo com o diagrama de classes apresentado.
+Utilizamos a ferramenta de @ia DeepSeek @deepseek:2025:deepseek para tradução de @uml para comandos em @sql.
 
-// Em seguida, os autores criaram por meio da mesma ferramenta de @ia um conjunto de dados sintéticos referentes a receitas, insumos e seus custos, descritos em comandos de inserção de dados SQL.
-// Tais comandos podem ser acessados por meio do repositório público do projeto @tortinhas_quixotescas:2025:repository_dcc166_atv2.
+Criamos a @bd e executamos tais comandos por meio do Sistema Gerenciador de @bd:long @pg #cite(<postgresql:2025:postgresql>).
+Ele foi hospedado em um servidor remoto, permitindo o acesso simultâneo por múltiplos usuários e pela ferramenta de @bi.
 
-// As três receitas escolhidas, quais sejam pão francês, brigadeiro e bolo de milho verde, são baseadas em receitas reais e foram selecionadas por utilizarem poucos ingredientes, facilitando a análise, com o compartilhamento de alguns insumos, como manteiga e açúcar, entre si.
-// Os valores atribuídos aos preços dos insumos foram escolhidos de maneira arbitrária, uma vez que estes podem variar drasticamente por fatores como região e fornecedor.
-// Contudo, buscamos representar preços praticados no mercado brasileiro, de forma que foi mantida uma relação de proporção lógica entre os produtos.
-// Por exemplo, o leite condensado possui um custo superior ao da água.
-
-// A seleção das receitas também considerou a variação de volume de armazenamento de seus ingredientes.
-// Esta pode ser uma informação relevante para a tomada de decisão, pois ingredientes de pequeno volume que impactam drasticamente o lucro podem e devem ser comprados em quantidades maiores para mitigar riscos de desabastecimento ou aumento de preço.
-// Adicionalmente, buscamos analisar a hipótese de que o estabelecimento deve procurar diversificar seu portfólio de produtos com receitas que não dependam excessivamente dos mesmos ingredientes, distribuindo assim o risco associado à volatilidade de preços.
-
-// Após a criação do banco de dados e dos dados sintéticos, os autores substituíram o sistema de banco de dados SQLite pelo PostgreSQL @postgresql:2025:postgresql, que foi hospedado em um servidor remoto, permitindo o acesso simultâneo por múltiplos usuários e pela ferramenta de visualização de dados.
-// Então, a ferramenta de @ia DeepSeek foi novamente utilizada para traduzir os comandos SQL de um dialeto para outro.
-// Em seguida, os dados foram devidamente inseridos.
+Em seguida, construímos #emph[scripts] de inserção dos dados na @bd.
+Estes foram elaborados na linguagem Python @python:2025:python com apoio da ferramenta DeepSeek.
+Todo o código descrito pode ser acessado por meio do repositório público do projeto @tortinhas_quixotescas:2025:repository_dcc166_trabalho3.
 
 // A fim de criar o dashboard para visualização dos resultados, foi utilizada a ferramenta de @bi de código aberto Apache Superset @apache_superset:2025:apache_superset.
 // Para fins de apresentação e trabalho colaborativo, foi empregada a plataforma Preset.io @preset:2025:preset, uma solução baseada em nuvem que hospeda o Apache Superset, facilitando o acesso remoto e o compartilhamento dos dashboards.
