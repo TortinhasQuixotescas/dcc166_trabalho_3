@@ -27,7 +27,6 @@ região geográfica de residência do beneficiário;
 UF de residência do beneficiário;
 município de residência do beneficiário.
 
-
 Extraímos dados no formato @ods do portal @sidra referentes aos censos demográficos de 2010 e 2022.
 Por meio da
 #emph[Tabela 9605: População residente, por cor ou raça, nos Censos Demográficos]
@@ -45,20 +44,19 @@ Então, selecionamos da
 )
 a população residente dentro do grupo etário de 18 a 24 anos e a população total.
 
+A fim de organizar os dados, desenvolvemos um diagrama de classes utilizando a ferramenta PlantUML @plantuml:2025:plantuml, que representa as relações entre as entidades identificadas.
+Este modelo, apresentado na @class_diagram, define as entidades a seguir.
+(1) `City`: representa um município, guardando seu nome, unidade federativa e a informação de se é metropolitano ou não.
+(2) `Census`: guarda as informações de interesse coletadas pelo censo demográfico de determinado ano para um município.
+(3) `Concession`: representa a concessão de uma bolsa do ProUni, contendo informações sobre a cor ou raça do beneficiário, sua idade, e uma relação com a cidade onde reside.
+(4) `Course`: representa um curso oferecido por uma @ies.
+(5) `Institution`: representa uma @ies, contendo seu nome e o código do e-MEC.
 
-// Como primeiro passo da modelagem do problema, foi desenvolvido um diagrama de classes utilizando a ferramenta PlantUML @plantuml:2025:plantuml para representar a estrutura dos dados relevantes para o domínio de uma confeitaria.
-
-// Este modelo, apresentado na @class_diagram, define as entidades a seguir.
-// (1) #emph[Dish]: representa uma receita, contendo informações como nome, preço de venda e peso resultante em gramas.
-// (2) #emph[Ingredient]: representa um insumo e seu nome.
-// (3) #emph[Ingredient_Cost]: armazena o custo de dado insumo em um determinado período de tempo, com informações de data de início e fim do intervalo, e o custo por grama.
-// (4) #emph[Usage]: relaciona um insumo a uma receita, especificando a quantidade necessária em gramas.
-
-// #figure(
-//   image("images/class_diagram.png", width: 100%),
-//   caption: [Diagrama de classes UML representando a estrutura de dados do sistema de confeitaria. Fonte: Elaborado pelos autores (2025).
-//   ],
-// )<class_diagram>
+#figure(
+  image("./images/class_diagram.svg", width: 100%),
+  caption: [Diagrama de classes UML representando a estrutura de dados.\ Fonte: Elaborado pelos autores (2025).
+  ],
+)<class_diagram>
 
 // Com o modelo de dados definido, foi utilizado o sistema gerenciador de banco de dados SQLite @sqlite:2025:sqlite para criar a estrutura lógica do banco.
 // As tabelas foram criadas de acordo com o diagrama de classes apresentado por meio da linguagem SQL, com o apoio da ferramenta de @ia DeepSeek @deepseek:2025:deepseek para tradução da modelagem UML para SQL.
