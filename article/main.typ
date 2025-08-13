@@ -61,7 +61,9 @@
 #include "conclusion.typ"
 
 // References
-= Referências
+#heading(numbering: none)[
+  Referências
+]
 #bibliography(
   "bibliography.bib",
   style: "template/bibliography_style.csl",

@@ -27,7 +27,9 @@
   #text(
     size: size,
   )[
-    #counter(heading).display()
+    #if it.numbering != none {
+      counter(heading).display(it.numbering)
+    }
     #it.body
   ]
 ]
