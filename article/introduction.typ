@@ -16,7 +16,7 @@ visava a aumentar para 30% a quantidade de jovens de 18 a 24 anos matriculados e
 Nesse sentido, este trabalho busca responder à seguinte pergunta:
 o @prouni atende os objetivos de promoção do acesso de pessoas moradoras de regiões do interior, de pessoas negras e indígenas, e de jovens de 18 a 24 anos a @ies:pl:long?
 
-Para respondê-la, realizaremos uma análise estatística sobre os ingressantes no ensino superior por meio do @prouni, comparando a proporção dentre eles em relação à proporção de pessoas com as mesmas características na população geral do país nos anos de 2005, 2010, 2015 e 2020.
+Para respondê-la, realizaremos uma análise estatística sobre os ingressantes no ensino superior por meio do @prouni, comparando a proporção dentre eles em relação à proporção de pessoas com as mesmas características na população geral do país nos anos de 2010 e 2022.
 
 Este trabalho é organizado da seguinte forma:
 a @methodology apresenta a metodologia utilizada para a análise;

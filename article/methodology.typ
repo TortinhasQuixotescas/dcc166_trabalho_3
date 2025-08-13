@@ -7,9 +7,44 @@ Nesse sentido, os @sad:pl são sistemas computacionais projetados para auxiliar 
 Eles têm o propósito de reunir um conjunto de informações relevantes, provenientes de fontes não necessariamente estruturadas, e apresentá-las com um caráter informativo.
 O método faz parte da modelagem analítica, transformando dados brutos em informações, sintetizadas em relatórios e projeções @gillis:2024:decision_support_system.
 
-O tipo de análise estatística que realizaremos é a análise de metas, considerando como meta a proporção de pessoas com as características de interesse na população geral do país.
-Os dados necessários para a análise serão obtidos do Portal de Dados Abertos do Governo Federal do Brasil, por meio do dataset acerca da relação anual de ingressantes no @prouni @dados_gov_br:2025:prouni.
-Além disso, utilizaremos dados dos Censos Demográficos e das projeções populacionais do @ibge para obter dados acerca da população geral do país.
+Os dados necessários para a análise foram obtidos do Portal de Dados Abertos do Governo Federal do Brasil, por meio do dataset acerca da relação anual de ingressantes no @prouni @dados_gov_br:2025:prouni.
+Este dataset está disponível em formato @csv, apresentando um documento para cada ano entre 2005 e 2020.
+
+Cada registro contém as seguintes informações:
+ano da concessão da bolsa;
+código do e-MEC da @ies que concedeu a bolsa;
+nome da @ies;
+tipo da bolsa;
+modalidade de ensino;
+nome do curso;
+turno do curso;
+CPF do beneficiário;
+sexo do beneficiário;
+raça ou cor;
+data de nascimento do beneficiário;
+indicação se o beneficiário é portador de deficiência;
+região geográfica de residência do beneficiário;
+UF de residência do beneficiário;
+município de residência do beneficiário.
+
+
+Extraímos dados no formato @ods do portal @sidra referentes aos censos demográficos de 2010 e 2022.
+Por meio da
+#emph[Tabela 9605: População residente, por cor ou raça, nos Censos Demográficos]
+#cite(<ibge:2025:populacao_por_cor>),
+selecionamos os municípios caracterizados como metropolitanos
+#footnote[
+  Definimos como municípios metropolitanos aqueles que são capitais de unidades federativas ou que estejam em região metropolitana, concentração urbana ou arranjo populacional em que se encontra capital de unidade federativa.
+],
+sobre os quais se selecionou a população residente por cor ou raça.
+Em seguida, fizemos a mesma busca para todos os municípios.
+Então, selecionamos da
+#emph[Tabela 9606: População residente, por cor ou raça, segundo o sexo e a idade]
+#cite(
+  <ibge:2025:populacao_por_idade>,
+)
+a população residente dentro do grupo etário de 18 a 24 anos e a população total.
+
 
 // Como primeiro passo da modelagem do problema, foi desenvolvido um diagrama de classes utilizando a ferramenta PlantUML @plantuml:2025:plantuml para representar a estrutura dos dados relevantes para o domínio de uma confeitaria.
 

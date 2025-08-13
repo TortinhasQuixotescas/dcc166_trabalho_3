@@ -70,4 +70,18 @@
     short: "IBGE",
     long: "Instituto Brasileiro de Geografia e Estatística",
   ),
+  csv: (
+    short: "CSV",
+    long: "Comma-Separated Values",
+    description: "Em português, Valores Separados por Vírgula",
+  ),
+  ods: (
+    short: "ODS",
+    long: "Open Document Spreadsheet",
+    description: "Em português, Planilha de Documento Aberto",
+  ),
+  sidra: (
+    short: "SIDRA",
+    long: "Sistema IBGE de Recuperação Automática",
+  ),
 )

@@ -2,47 +2,57 @@
 
 hide empty members
 
-namespace prouni {
-
-    enum Race {
-        BRANCA
-        PRETA
-        PARDA
-        AMARELA
-        INDIGENA
-        NAO_INFORMADA
-    }
+namespace census {
 
     class City {
-    - name: String
-    - federative_unit: String
+        - name: String
+        - federative_unit: String
+        - is_metropolitan: boolean
     }
 
+    class Census{
+        - year: Integer
+        - total_population: Integer
+        - young_population: Integer
+        - white_population: Integer
+        - black_population: Integer
+        - parda_population: Integer
+        - yellow_population: Integer
+        - indigenous_population: Integer
+    }
+    Census -l- City : "conducted in"
+
+}
+
+enum Color {
+    BRANCA
+    PRETA
+    PARDA
+    AMARELA
+    INDIGENA
+    NAO_INFORMADA
+}
+
+namespace prouni {
+
     class Institution {
-    - name: String
-    - e_mec_code: String
+        - name: String
+        - e_mec_code: String
     }
 
     class Course {
         - name: String
     }
-    Course --o Institution : "offered by"
+    Course -o Institution : "offered by"
 
     class Concession {
-    - year: Integer
-    - race: Race
-    - birth_date: Date
+        - year: Integer
+        - color: Color
+        - birth_date: Date
     }
-    Concession -- City : "resides in"
-    Concession -- Course : "enrolled in"
+    Concession -u- City : "resides in"
+    Concession - Course : "enrolled in"
 
 }
-
-namespace census {
-
-    
-
-}
-
 
 @enduml
