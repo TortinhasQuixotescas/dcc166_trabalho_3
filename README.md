@@ -20,6 +20,10 @@ CREATE DATABASE prouni_prouni;
 RESET ROLE;
 \c prouni_prouni;
 SELECT configure_database_privileges('prouni');
+SET ROLE administrator;
+CREATE DATABASE prouni_preset;
+SELECT assign_application_role_to_user('prouni', 'viewer', 'prouni_preset');
+RESET ROLE;
 ```
 
 ### Create Schemas
