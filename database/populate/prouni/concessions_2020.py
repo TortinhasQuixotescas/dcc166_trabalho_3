@@ -3,7 +3,7 @@ import pandas as pd
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 from datetime import datetime
-from collections import Counter  # Added this import
+from collections import Counter
 
 # Load environment variables
 load_dotenv()
@@ -55,25 +55,25 @@ def import_concessions(csv_path):
             csv_path,
             sep=';',
             encoding='iso-8859-1',
-            # nrows=1000,
             dtype={
                 'CODIGO_EMEC_IES_BOLSA': str,
-                'CPF_BENEFICIARIO_BOLSA': str
+                'CPF_BENEFICIARIO': str
             }
         )
     except Exception as e:
         print(f"Failed to read CSV file: {e}")
         return
 
-    # Define column mapping for the fixed format
+    # Define column mapping for the new format
     COLUMN_MAP = {
         'year': 'ANO_CONCESSAO_BOLSA',
         'e_mec_code': 'CODIGO_EMEC_IES_BOLSA',
         'course_name': 'NOME_CURSO_BOLSA',
-        'city_name': 'MUNICIPIO_BENEFICIARIO_BOLSA',
-        'uf': 'SIGLA_UF_BENEFICIARIO_BOLSA',
-        'color': 'RACA_BENEFICIARIO_BOLSA',
-        'birth_date': 'DT_NASCIMENTO_BENEFICIARIO'
+        'city_name': 'MUNICIPIO_BENEFICIARIO',
+        'uf': 'UF_BENEFICIARIO',
+        'color': 'RACA_BENEFICIARIO',
+        'birth_date': 'DATA_NASCIMENTO'
+        # Campus field is intentionally omitted
     }
 
     # Clean and transform data
@@ -91,7 +91,8 @@ def import_concessions(csv_path):
     df_clean['birth_date'] = df_clean['birth_date'].apply(parse_date)
 
     # Remove rows with missing essential data
-    df_clean = df_clean.dropna(subset=['year', 'e_mec_code', 'course_name', 'city_name', 'uf', 'color', 'birth_date'])
+    essential_columns = ['year', 'e_mec_code', 'course_name', 'city_name', 'uf', 'color', 'birth_date']
+    df_clean = df_clean.dropna(subset=essential_columns)
 
     # Process concessions in batches
     BATCH_SIZE = 1000
@@ -111,23 +112,27 @@ def import_concessions(csv_path):
                 batch_inserts = []
                 
                 for _, row in batch.iterrows():
-                    # Check course reference
+                    # Check course reference (without campus)
                     course_query = """
                         SELECT c.id 
                         FROM prouni.course c
                         JOIN prouni.institution i ON c.institution_id = i.id
-                        WHERE i.e_mec_code = :e_mec AND LOWER(UNACCENT(c.name)) = LOWER(UNACCENT(:course_name))
+                        WHERE i.e_mec_code = :e_mec 
+                        AND LOWER(UNACCENT(c.name)) = LOWER(UNACCENT(:course_name))
                     """
                     course_result = conn.execute(
                         text(course_query),
-                        {'e_mec': row['e_mec_code'], 'course_name': row['course_name']}
+                        {
+                            'e_mec': row['e_mec_code'],
+                            'course_name': row['course_name']
+                        }
                     ).scalar()
                     
                     # Check city reference
                     city_query = """
                         SELECT id 
                         FROM census.city 
-                        WHERE unaccent(LOWER(name)) = unaccent(LOWER(:city_name))
+                        WHERE LOWER(UNACCENT(name)) = LOWER(UNACCENT(:city_name))
                         AND federative_unit = :uf
                     """
                     city_result = conn.execute(
@@ -168,8 +173,6 @@ def import_concessions(csv_path):
                 
                 print(f"Processed {min(i+BATCH_SIZE, total_rows)}/{total_rows} records", end='\r')
             
-            trans.commit()
-            
             # Print detailed missing references report
             if missing_courses or missing_cities:
                 print("\n\n=== MISSING REFERENCES REPORT ===")
@@ -186,17 +189,21 @@ def import_concessions(csv_path):
                     for (city, uf), count in city_counter.most_common(25):
                         print(f"- {count:4} x | City: {city}, UF: {uf}")
             
+            trans.commit()
             print(f"\n\nImport completed:")
             print(f"- Successfully inserted {inserted} concessions")
             print(f"- Skipped {skipped} records (missing references)")
             
         except Exception as e:
-            trans.rollback()
+            try:
+                trans.rollback()
+            except:
+                pass  # Ignore rollback errors if transaction is already closed
             print(f"\nError during import: {e}")
             raise
 
 if __name__ == "__main__":
-    csv_file_path = "../../../sources/prouni/2010.csv"
+    csv_file_path = "../../../sources/prouni/2020.csv"  # Updated path for 2020 data
     if not os.path.exists(csv_file_path):
         print(f"Error: File not found at {csv_file_path}")
     else:
