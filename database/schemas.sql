@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS unaccent;
+
 -- Create the enumeration type for color
 CREATE TYPE color AS ENUM (
     'BRANCA',
