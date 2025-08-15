@@ -26,7 +26,8 @@ indicação se o beneficiário é portador de deficiência;
 região geográfica de residência do beneficiário;
 UF de residência do beneficiário;
 município de residência do beneficiário.
-Corrigimos os nomes de alguns municípios para garantir a padronização.
+Realizamos ajustes nos nomes de alguns municípios para garantir a padronização e indexação entre as diferentes fontes de dados, como por exemplo:
+remover a sigla da unidade federativa; remover acentos e caracteres especiais; transformar em letras minúsculas; corrigir hífen, espaços e apóstrofos; e selecionar o nome do município conforme o @ibge, quando houver divergência.
 
 Extraímos dados no formato @ods do portal @sidra referentes aos censos demográficos de 2010 e 2022.
 Por meio da
