@@ -70,3 +70,29 @@ python3 color_data.py
 python3 age_data.py
 cd ../../..
 ```
+
+```bash
+cd ./database/populate/prouni
+python3 institutions_and_courses.py
+python3 concessions_2010.py
+python3 concessions_2020.py
+cd ../../..
+```
+
+### Views
+
+Access the `views` directory, enter `psql` connected to the `prouni_prouni` database, and execute each file in this order.
+
+```bash
+cd ./database/views
+psql -h <hostname> -U <username> -d prouni_prouni
+```
+
+```postgresql
+\i city_demographics.sql
+\i city_demographics_for_concessions.sql
+\i city_demographics_combined.sql
+\i state_demographics_combined.sql
+\i region_demographics_combined.sql
+\i country_demographics_combined.sql
+```
